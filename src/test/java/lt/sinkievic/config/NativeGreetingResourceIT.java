@@ -1,9 +1,9 @@
-package lt.sinkievic;
+package lt.sinkievic.config;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class NativeExampleResourceIT extends GatewayResourceTest {
+public class NativeGreetingResourceIT extends GreetingResourceTest {
 
     // Execute the same tests but in native mode.
 }

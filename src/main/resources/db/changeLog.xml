@@ -1,0 +1,70 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="vsinkievic" id="1">
+        <createTable tableName="key">
+            <column name="id" type="serial">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="bool" defaultValue="true">
+            </column>
+            <column name="key" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)" />
+        </createTable>
+        <addPrimaryKey tableName="key" constraintName="pk_key" columnNames="id"/>
+        <createIndex tableName="key" indexName="idx_key_key" unique="true">
+        	<column name="key" />
+        </createIndex> 
+    </changeSet>
+    
+    <changeSet author="vsinkievic" id="2">
+        <createTable tableName="field">
+            <column name="code" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="grp" type="VARCHAR(50)" />
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)" />
+        </createTable>
+        <addPrimaryKey tableName="field" constraintName="pk_field" columnNames="code"/>
+    </changeSet>
+
+    <changeSet author="vsinkievic" id="3">
+        <createTable tableName="data_row">
+            <column name="id" type="serial">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dtime" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="grp" type="VARCHAR(50)" />
+            <column name="fld" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dec_value" type="double" />
+            <column name="text_value" type="VARCHAR(255)" />
+        </createTable>
+        <addPrimaryKey tableName="data_row" constraintName="pk_drow" columnNames="id"/>
+        <createIndex tableName="data_row" indexName="idx_drow_field" unique="false">
+        	<column name="fld" />
+        	<column name="dtime" />
+        </createIndex> 
+        <createIndex tableName="data_row" indexName="idx_drow_group" unique="false">
+        	<column name="grp" />
+        </createIndex> 
+    </changeSet>
+
+</databaseChangeLog>
